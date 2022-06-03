@@ -9,7 +9,9 @@ import Head from 'next/head'
 import Header from '../components/Header'
 import HeroSection from '../components/HeroSection'
 
-const Home: NextPage = () => {
+const Home: NextPage = ({
+  countriesData,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <>
       <Head>
