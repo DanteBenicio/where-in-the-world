@@ -19,7 +19,7 @@ const Home: NextPage = ({
         <link type="image/png" rel="icon" href="assets/favicon.png" />
       </Head>
       <Header />
-      <HeroSection />
+      <HeroSection countriesData={countriesData!} />
     </>
   )
 }
