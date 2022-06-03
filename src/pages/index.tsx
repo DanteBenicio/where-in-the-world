@@ -1,4 +1,10 @@
-import type { NextPage } from 'next'
+/* eslint-disable no-undef */
+import axios from 'axios'
+import type {
+  GetServerSideProps,
+  InferGetServerSidePropsType,
+  NextPage,
+} from 'next'
 import Head from 'next/head'
 import Header from '../components/Header'
 import HeroSection from '../components/HeroSection'
