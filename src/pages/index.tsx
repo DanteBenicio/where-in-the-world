@@ -18,7 +18,6 @@ const Home: NextPage = ({
         <title>Where in the world | Frontend Mentor</title>
         <link type="image/png" rel="icon" href="assets/favicon.png" />
       </Head>
-      <Header />
       <HeroSection countriesData={countriesData!} />
     </>
   )
