@@ -1,0 +1,146 @@
+.section_container {
+  display: grid;
+  place-items: center;
+  max-width: 100vw;
+  min-height: 100vh;
+  width: 100%;
+  
+  padding: 2rem 4rem;
+
+  background-color: var(--very-light-gray);
+
+  &.dark {
+    background-color: var(--very-light-gray);
+  }
+}
+
+.section_wrapper {
+  width: 100%;
+  height: 100%;
+
+  .back_button_wrapper {
+    width: 100%;
+    margin-bottom: 5rem;
+
+    > button {
+      display: flex;
+      align-items: center;
+
+      gap: 1rem;
+      padding: 0.4rem 1rem;
+
+      border: none;
+      border-radius: 0.3rem;
+
+      font-size: clamp(0.8rem, 5vw, 1rem);
+
+      background-color: var(--very-light-gray);
+      box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3);
+      color: var(--white);
+
+      cursor: pointer;
+
+      transition: transform 0.2s;
+
+      &:hover {
+        filter: brightness(1.1);
+        transform: scale(1.05);
+      }
+
+      &:active {
+        filter: brightness(0.9);
+      }
+
+      &.dark {
+        background-color: var(--dark-gray);
+      }
+    }
+  }
+}
+
+.content_wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 100%;
+
+  gap: 6rem;
+
+  color: var(--white);
+
+  > .image_wrapper {
+    position: relative;
+
+    max-width: 450px;
+    min-height: 400px;
+    width: 100%;
+  }
+
+  .country_info_container {
+    width: 50%;
+
+    > h2 {
+      font-size: clamp(1.5rem, 5vw, 2rem);
+      margin-bottom: 2rem;
+    }
+  }
+}
+
+.country_info_wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 4rem;
+}
+
+.country_info {
+  > p {
+    line-height: 26px;
+    font-size: clamp(0.8rem, 5vw, 1rem);
+
+    > span {
+      font-weight: var(--600);
+    }
+  }
+}
+
+.border_countries_wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  margin-top: 4rem;
+  gap: 0.8rem;
+
+  > p {
+    font-weight: var(--600);
+  }
+
+  > .border_country {
+    padding: 0.2rem 1.2rem;
+    background-color: var(--dark-gray);
+    text-align: center;
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3);
+    border-radius: 0.2rem;
+
+    background-color: var(--very-light-gray);
+
+    cursor: pointer;
+
+    transition: transform 0.2s;
+
+    &:hover {
+      filter: brightness(1.1);
+      transform: scale(1.05);
+    }
+
+    &:active {
+      filter: brightness(0.9);
+    }
+    
+    &.dark {
+      background-color: var(--dark-gray);
+    }
+  }
+}
