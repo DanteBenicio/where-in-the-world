@@ -36,14 +36,13 @@ export default function Country({ countryData }: CountryProps) {
         </div>
 
         <div className={styles.content_wrapper}>
-          <div className={styles.image_wrapper}>
-            <Image
-              src={countryData?.flags?.svg}
-              layout="fill"
-              objectFit="cover"
-              alt="country flag"
-            />
-          </div>
+          <Image
+            src={countryData?.flags?.svg}
+            objectFit="cover"
+            width={500}
+            height={400}
+            alt="country flag"
+          />
 
           <div className={styles.country_info_container}>
             <h2>{countryData.countryName}</h2>
