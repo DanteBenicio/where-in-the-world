@@ -21,6 +21,7 @@ strong {
   font-family: 'Nunito Sans', sans-serif;
 }
 :root {
+  /* Light Mode */
   --dark-gray: hsl(0, 0%, 52%);
   --very-light-gray: hsl(0, 0%, 98%)
   --white: hsl(0, 0%, 100%);
