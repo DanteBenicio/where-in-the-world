@@ -17,11 +17,16 @@ interface ContextProviderProps {
 
 export const AppContext = createContext<AppContextType>({
   themeMode: '',
+  selectedRegion: '',
   setThemeMode: () => {},
+  setSelectedRegion: () => {},
 })
 
 export function ContextProvider({ children }: ContextProviderProps) {
   const [themeMode, setThemeMode] = useState<string>('')
+  const [selectedRegion, setSelectedRegion] = useState<
+    'Africa' | 'Americas' | 'Asia' | 'Europe' | 'Oceania' | string
+  >('')
 
   useEffect(() => {
     if (!themeMode) {
@@ -39,7 +44,9 @@ export function ContextProvider({ children }: ContextProviderProps) {
   }, [themeMode])
 
   return (
-    <AppContext.Provider value={{ themeMode, setThemeMode }}>
+    <AppContext.Provider
+      value={{ themeMode, setThemeMode, selectedRegion, setSelectedRegion }}
+    >
       {children}
     </AppContext.Provider>
   )
