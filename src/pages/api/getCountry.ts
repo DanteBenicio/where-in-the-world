@@ -29,7 +29,6 @@ export default async (
             svg: parsedData?.flags?.svg || null,
           },
         }
-        // console.log(country)
 
         return country
       },
