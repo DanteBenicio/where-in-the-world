@@ -1,0 +1,19 @@
+@keyframes loadingRotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@mixin loading-style($width, $height, $border: 3px) {
+  margin: 0 auto;
+  width: $width;
+  height: $height;
+  border-radius: 50%;
+  border: $border solid var(--white);
+  border-right-color: transparent;
+  animation: loadingRotate 0.8s infinite;
+}
