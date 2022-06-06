@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react'
 
 interface AppContextType {
-  themeMode: string
+  themeMode: 'light' | 'dark' | string
   setThemeMode: React.Dispatch<React.SetStateAction<string>>
   selectedRegion: 'Africa' | 'Americas' | 'Asia' | 'Europe' | 'Oceania' | string
   setSelectedRegion: React.Dispatch<
