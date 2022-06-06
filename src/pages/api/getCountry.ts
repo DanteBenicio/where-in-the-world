@@ -18,6 +18,7 @@ export default async (
         const country = {
           capital: parsedData?.capital?.[0] || null,
           countryName: parsedData?.name?.common || null,
+          nativeName: parsedData?.name?.nativeName || null,
           population: parsedData?.population || null,
           region: parsedData?.region || null,
           sub_region: parsedData?.subregion || null,
