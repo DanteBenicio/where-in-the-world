@@ -5,6 +5,7 @@ type CountryInformations = {
   population: number
   region: string
   sub_region: string
+  borders: string[]
   top_level_domain: string[]
   currencies: {
     [key: string]: {
