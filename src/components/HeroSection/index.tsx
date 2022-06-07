@@ -133,7 +133,11 @@ export default function HeroSection({ countriesData }: HeroSectionProps) {
               )}
             </div>
             {showRegion && (
-              <div className={styles.region_list_wrapper}>
+              <div
+                className={`${styles.region_list_wrapper} ${
+                  themeMode === 'dark' ? styles.dark : ''
+                }`}
+              >
                 <ul className={styles.region_list} ref={regionListRef}>
                   <li onClick={getSelectedRegion}>Africa</li>
                   <li onClick={getSelectedRegion}>Americas</li>
