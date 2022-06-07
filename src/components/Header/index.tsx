@@ -2,13 +2,20 @@ import React, { useContext } from 'react'
 
 import styles from './styles.module.scss'
 import { AppContext } from '../../context'
+import Link from 'next/link'
 
 export default function Header() {
   const { themeMode, setThemeMode } = useContext(AppContext)
 
   return (
     <header className={styles.header}>
-      <h1 id={styles.title}>Where in the world?</h1>
+    <header
+      className={`${styles.header} ${themeMode === 'dark' ? styles.dark : ''}`}
+    >
+      <Link href={'/'}>
+        <h1 id={styles.title}>Where in the world?</h1>
+      </Link>
+
       <div
         onClick={() => setThemeMode(themeMode === 'light' ? 'dark' : 'light')}
         className={styles.switch_mode}
