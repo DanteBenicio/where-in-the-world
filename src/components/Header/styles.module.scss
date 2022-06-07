@@ -7,8 +7,12 @@
   width: 100%;
 
   padding: 1.4rem 3rem;
-  background-color: var(--dark-gray);
-  border-bottom: 1px solid var(--dark-gray);
+  gap: 3rem;
+  background-color: var(--white);
+
+  &.dark {
+    background-color: var(--dark-gray);
+  }
 
   > #title {
     color: var(--white);
