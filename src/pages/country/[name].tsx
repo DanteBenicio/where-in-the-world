@@ -18,6 +18,7 @@ export default function Country({ countryData }: CountryProps) {
 
   useEffect(() => {
     setLoading(false)
+    setWaitCursor(false)
   }, [])
 
   return (
