@@ -22,6 +22,7 @@ export default function CountryCard({
   return (
     <Link href={`/country/${countryName.toLowerCase()}`}>
       <div
+        onClick={() => setWaitCursor(true)}
         className={`${styles.card_container} ${
           themeMode === 'dark' ? styles.dark : ''
         }`}
