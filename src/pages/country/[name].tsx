@@ -96,16 +96,20 @@ export default function Country({ countryData }: CountryProps) {
 
             <div className={styles.border_countries_wrapper}>
               <p>Border Countries: </p>
-              {countryData?.borders.map((border) => (
-                <span
-                  key={border}
-                  className={`${styles.border_country} ${
-                    themeMode === 'dark' ? styles.dark : ''
-                  }`}
-                >
-                  {border}
-                </span>
-              ))}
+              {countryData?.borders ? (
+                countryData.borders.map((border) => (
+                  <span
+                    key={border}
+                    className={`${styles.border_country} ${
+                      themeMode === 'dark' ? styles.dark : ''
+                    }`}
+                  >
+                    {border}
+                  </span>
+                ))
+              ) : (
+                <strong>This country does not border any country</strong>
+              )}
             </div>
           </div>
         </div>
