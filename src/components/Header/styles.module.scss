@@ -48,3 +48,14 @@
     }
   }
 }
+
+@media screen and (max-width: 540px) {
+  .header {
+    padding: 1.4rem 1rem;
+
+    > #title {
+      font-size: clamp(0.5rem, 5vw, 1rem);
+      white-space: break-spaces;
+    }
+  }
+}
