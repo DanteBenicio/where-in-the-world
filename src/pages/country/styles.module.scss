@@ -69,12 +69,8 @@
 
   color: var(--white);
 
-  > .image_wrapper {
-    position: relative;
-
-    max-width: 450px;
-    min-height: 400px;
-    width: 100%;
+  > .image {
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3);
   }
 
   .country_info_container {
