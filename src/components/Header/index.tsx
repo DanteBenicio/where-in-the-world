@@ -8,7 +8,6 @@ export default function Header() {
   const { themeMode, setThemeMode } = useContext(AppContext)
 
   return (
-    <header className={styles.header}>
     <header
       className={`${styles.header} ${themeMode === 'dark' ? styles.dark : ''}`}
     >
