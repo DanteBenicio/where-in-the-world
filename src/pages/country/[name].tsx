@@ -64,7 +64,8 @@ export default function Country({ countryData }: CountryProps) {
                   )}
                 </p>
                 <p>
-                  <span>Region:</span> {countryData?.region}
+                  <span>Region:</span>{' '}
+                  {countryData?.region || <strong>Without region</strong>}
                 </p>
                 <p>
                   <span>Sub Region:</span>{' '}
