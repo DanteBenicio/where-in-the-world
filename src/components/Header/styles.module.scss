@@ -14,6 +14,7 @@
     color: var(--white);
     font-size: clamp(0.8rem, 5vw, 1.5rem);
     font-weight: var(--800);
+    cursor: pointer;
   }
 
   > .switch_mode {
