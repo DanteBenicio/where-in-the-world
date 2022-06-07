@@ -97,7 +97,8 @@
 .country_info {
   > p {
     line-height: 26px;
-    font-size: clamp(0.8rem, 5vw, 1rem);
+    font-size: clamp(0.6rem, 5vw, 1rem);
+    white-space: nowrap;
 
     > span {
       font-weight: var(--600);
