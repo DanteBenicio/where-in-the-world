@@ -22,7 +22,46 @@ export default function HeroSection({ countriesData }: HeroSectionProps) {
   const [isFetching, setIsFetching] = useState<boolean>(false)
   const inputFormRef = useRef<HTMLInputElement | null>(null)
   const regionListRef = useRef<HTMLUListElement | null>(null)
-  const selectRegionRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    if (waitCursor) {
+      window.document.documentElement.style.cursor = 'wait'
+    } else {
+      window.document.documentElement.style.cursor = 'auto'
+    }
+  })
+
+  function searchCountry(input: HTMLInputElement) {
+    const inputValue = input?.value.toLowerCase()
+
+    if (inputValue) {
+      const findedCountries = countries.filter((country) =>
+        country.countryName.toLowerCase().startsWith(inputValue),
+      )
+
+      console.log(findedCountries, inputValue)
+
+      setCountries(findedCountries)
+    } else {
+      ;(async () => {
+        try {
+          if (selectedRegion) {
+            const { data } = await getCountriesFromSelectedRegion(
+              selectedRegion,
+            )
+
+            setCountries(data)
+          } else {
+            const { data } = await api.get('/getAllCountries')
+
+            setCountries(data)
+          }
+        } catch (error) {
+          console.error(error)
+        }
+      })()
+    }
+  }
 
   function getSelectedRegion(event: React.MouseEvent<HTMLLIElement>) {
     const region = event.currentTarget
