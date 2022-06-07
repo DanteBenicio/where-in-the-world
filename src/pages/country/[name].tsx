@@ -14,6 +14,11 @@ interface CountryProps {
 
 export default function Country({ countryData }: CountryProps) {
   const { themeMode } = useContext(AppContext)
+  const [loading, setLoading] = useState<boolean>(false)
+
+  useEffect(() => {
+    setLoading(false)
+  }, [])
 
   return (
     <section
