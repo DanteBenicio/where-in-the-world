@@ -104,7 +104,7 @@ export default function HeroSection({ countriesData }: HeroSectionProps) {
             />
           </form>
 
-          <div className={styles.select_region_container} ref={selectRegionRef}>
+          <div className={styles.select_region_container}>
             <div
               onClick={() => setShowRegion(!showRegion)}
               className={`${styles.select_region} ${
