@@ -62,7 +62,7 @@ export default function HeroSection({ countriesData }: HeroSectionProps) {
     try {
       setIsFetching(true)
 
-      const { data } = await api.get('/api/getMoreCountries', {
+      const { data: newCountriesData } = await api.get('/getMoreCountries', {
         params: {
           countriesTotal: countries?.length,
           region: selectedRegion,
@@ -75,7 +75,7 @@ export default function HeroSection({ countriesData }: HeroSectionProps) {
         return
       }
 
-      setCountries([...countries!, ...data])
+      setCountries([...countries!, ...newCountriesData])
       setIsFetching(false)
     } catch (error) {
       console.error(error)
