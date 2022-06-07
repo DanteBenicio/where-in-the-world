@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import React, { useContext, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import CountryCard from '../CountryCard'
 import styles from './styles.module.scss'
 import SearchIcon from '../../svgs/search-icon'
