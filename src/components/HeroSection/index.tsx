@@ -46,7 +46,7 @@ export default function HeroSection({ countriesData }: HeroSectionProps) {
     region: string,
   ): Promise<AxiosPromise<CountryInformations[]>> {
     try {
-      return await api.get<CountryInformations[]>('/api/getCountries', {
+      return await api.get<CountryInformations[]>('/getCountries', {
         params: {
           region,
         },
