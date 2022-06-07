@@ -25,6 +25,7 @@ export default async (
           top_level_domain: parsedData?.tld || null,
           currencies: parsedData?.currencies || null,
           languages: parsedData?.languages || null,
+          borders: parsedData?.borders || null,
           flags: {
             png: parsedData?.flags?.png || null,
             svg: parsedData?.flags?.svg || null,
