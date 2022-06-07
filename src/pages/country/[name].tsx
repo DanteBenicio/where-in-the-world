@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Image from 'next/image'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../../context'
 import { api, countriesRequest } from '../../services/axios'
 import styles from './styles.module.scss'
