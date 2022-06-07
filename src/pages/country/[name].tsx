@@ -37,6 +37,7 @@ export default function Country({ countryData }: CountryProps) {
 
         <div className={styles.content_wrapper}>
           <Image
+            className={styles.image}
             src={countryData?.flags?.svg}
             objectFit="cover"
             width={500}
