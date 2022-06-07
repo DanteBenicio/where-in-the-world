@@ -26,11 +26,15 @@ export default function HeroSection({ countriesData }: HeroSectionProps) {
   const regionListRef = useRef<HTMLUListElement | null>(null)
 
   useEffect(() => {
-    if (waitCursor) {
-      window.document.documentElement.style.cursor = 'wait'
-    } else {
-      window.document.documentElement.style.cursor = 'auto'
-    }
+    ;(async () => {
+      if (selectedRegion) {
+        try {
+          const { data } = await getCountriesFromSelectedRegion(selectedRegion)
+
+          setCountries(data)
+        } catch (error) {
+          console.error(error)
+        }
   })
 
   function searchCountry(input: HTMLInputElement) {

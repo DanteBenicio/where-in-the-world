@@ -13,7 +13,7 @@ interface CountryProps {
 }
 
 export default function Country({ countryData }: CountryProps) {
-  const { themeMode } = useContext(AppContext)
+  const { themeMode, setWaitCursor } = useContext(AppContext)
   const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
