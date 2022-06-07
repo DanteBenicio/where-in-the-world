@@ -20,6 +20,7 @@ export default function HeroSection({ countriesData }: HeroSectionProps) {
   const [countries, setCountries] =
     useState<CountryInformations[]>(countriesData)
   const [isFetching, setIsFetching] = useState<boolean>(false)
+  const [waitCursor, setWaitCursor] = useState<boolean>(false)
   const inputFormRef = useRef<HTMLInputElement | null>(null)
   const regionListRef = useRef<HTMLUListElement | null>(null)
 
