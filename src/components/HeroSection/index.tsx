@@ -14,14 +14,13 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({ countriesData }: HeroSectionProps) {
-  const { themeMode, selectedRegion, setSelectedRegion } =
+  const { themeMode, selectedRegion, setSelectedRegion, setWaitCursor } =
     useContext(AppContext)
 
   const [showRegion, setShowRegion] = useState<boolean>(false)
   const [countries, setCountries] =
     useState<CountryInformations[]>(countriesData)
   const [isFetching, setIsFetching] = useState<boolean>(false)
-  const [waitCursor, setWaitCursor] = useState<boolean>(false)
   const inputFormRef = useRef<HTMLInputElement | null>(null)
   const regionListRef = useRef<HTMLUListElement | null>(null)
 
@@ -35,7 +34,9 @@ export default function HeroSection({ countriesData }: HeroSectionProps) {
         } catch (error) {
           console.error(error)
         }
-  })
+      }
+    })()
+  }, [])
 
   function searchCountry(input: HTMLInputElement) {
     const inputValue = input?.value.toLowerCase()
@@ -44,8 +45,6 @@ export default function HeroSection({ countriesData }: HeroSectionProps) {
       const findedCountries = countries.filter((country) =>
         country.countryName.toLowerCase().startsWith(inputValue),
       )
-
-      console.log(findedCountries, inputValue)
 
       setCountries(findedCountries)
     } else {
