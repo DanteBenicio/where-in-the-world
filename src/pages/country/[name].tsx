@@ -81,8 +81,12 @@ export default function Country({ countryData }: CountryProps) {
                 </p>
                 <p>
                   <span>Currencies:</span>{' '}
-                  {Object.entries(countryData?.currencies).map(
-                    ([_, value]) => value.name,
+                  {countryData?.currencies ? (
+                    Object.entries(countryData?.currencies).map(
+                      ([_, value]) => value.name,
+                    )
+                  ) : (
+                    <strong>Without currencies</strong>
                   )}
                 </p>
                 <p>
