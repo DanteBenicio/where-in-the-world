@@ -70,7 +70,8 @@ export default function Country({ countryData }: CountryProps) {
                   <span>Sub Region:</span> {countryData?.sub_region}
                 </p>
                 <p>
-                  <span>Capital:</span> {countryData?.capital}
+                  <span>Capital:</span>{' '}
+                  {countryData?.capital || <strong>Without capital</strong>}
                 </p>
               </div>
 
