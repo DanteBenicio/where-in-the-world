@@ -54,6 +54,10 @@
       &.dark {
         background-color: var(--dark-gray);
       }
+
+      > .loading {
+        @include loading-style(1.5625rem, 1.5625rem, 1px);
+      }
     }
   }
 }
