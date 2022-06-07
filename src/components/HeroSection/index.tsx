@@ -69,7 +69,11 @@ export default function HeroSection({ countriesData }: HeroSectionProps) {
         },
       })
 
-      console.log(data)
+      if (inputFormRef.current?.value) {
+        setCountries(newCountriesData)
+        setIsFetching(false)
+        return
+      }
 
       setCountries([...countries!, ...data])
       setIsFetching(false)
