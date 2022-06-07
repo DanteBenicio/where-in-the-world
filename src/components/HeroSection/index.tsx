@@ -100,6 +100,7 @@ export default function HeroSection({ countriesData }: HeroSectionProps) {
             <input
               type="text"
               placeholder="Search for a country..."
+              onChange={(e) => searchCountry(e.currentTarget)}
               ref={inputFormRef}
             />
           </form>
