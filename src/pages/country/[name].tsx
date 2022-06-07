@@ -23,14 +23,23 @@ export default function Country({ countryData }: CountryProps) {
     >
       <div className={styles.section_wrapper}>
         <div className={styles.back_button_wrapper}>
-          <Link href="/">
-            <button className={`${themeMode === 'dark' ? styles.dark : ''}`}>
-              {themeMode === 'dark' ? (
-                <ArrowBack fillColor="#FFF" />
+          <Link href="/" prefetch>
+            <button
+              onClick={() => setLoading(true)}
+              className={`${themeMode === 'dark' ? styles.dark : ''}`}
+            >
+              {!loading ? (
+                <>
+                  {themeMode === 'dark' ? (
+                    <ArrowBack fillColor="#FFF" />
+                  ) : (
+                    <ArrowBack fillColor="#000" />
+                  )}
+                  Back
+                </>
               ) : (
-                <ArrowBack fillColor="#000" />
+                <div className={styles.loading} />
               )}
-              Back
             </button>
           </Link>
         </div>
