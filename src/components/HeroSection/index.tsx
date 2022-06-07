@@ -16,7 +16,6 @@ interface HeroSectionProps {
 export default function HeroSection({ countriesData }: HeroSectionProps) {
   const { themeMode } = useContext(AppContext)
   const [showRegion, setShowRegion] = useState<boolean>(false)
-  const [selectedRegion, setSelectedRegion] = useState<string>('')
   const [countries, setCountries] =
     useState<CountryInformations[]>(countriesData)
   const [isFetching, setIsFetching] = useState<boolean>(false)
