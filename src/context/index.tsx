@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, { createContext, useEffect, useState } from 'react'
 
 interface AppContextType {
@@ -9,6 +10,12 @@ interface AppContextType {
       'Africa' | 'Americas' | 'Asia' | 'Europe' | 'Oceania' | string
     >
   >
+  countries: CountryInformations[] | undefined
+  setCountries: React.Dispatch<
+    React.SetStateAction<CountryInformations[] | undefined>
+  >
+  setWaitCursor: React.Dispatch<React.SetStateAction<boolean>>
+  waitCursor: boolean
 }
 
 interface ContextProviderProps {
@@ -16,10 +23,14 @@ interface ContextProviderProps {
 }
 
 export const AppContext = createContext<AppContextType>({
+  countries: undefined,
   themeMode: '',
   selectedRegion: '',
+  waitCursor: false,
+  setCountries: () => {},
   setThemeMode: () => {},
   setSelectedRegion: () => {},
+  setWaitCursor: () => {},
 })
 
 export function ContextProvider({ children }: ContextProviderProps) {
@@ -27,6 +38,16 @@ export function ContextProvider({ children }: ContextProviderProps) {
   const [selectedRegion, setSelectedRegion] = useState<
     'Africa' | 'Americas' | 'Asia' | 'Europe' | 'Oceania' | string
   >('')
+  const [countries, setCountries] = useState<CountryInformations[]>()
+  const [waitCursor, setWaitCursor] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (waitCursor) {
+      document.documentElement.style.cursor = 'wait'
+    } else {
+      document.documentElement.style.cursor = 'auto'
+    }
+  })
 
   useEffect(() => {
     if (!themeMode) {
@@ -35,17 +56,26 @@ export function ContextProvider({ children }: ContextProviderProps) {
     }
 
     if (themeMode === 'light') {
-      document.documentElement.classList.add('dark')
-      localStorage.setItem('themeMode', 'dark')
-    } else {
       document.documentElement.classList.remove('dark')
       localStorage.setItem('themeMode', 'light')
+    } else {
+      document.documentElement.classList.add('dark')
+      localStorage.setItem('themeMode', 'dark')
     }
   }, [themeMode])
 
   return (
     <AppContext.Provider
-      value={{ themeMode, setThemeMode, selectedRegion, setSelectedRegion }}
+      value={{
+        themeMode,
+        countries,
+        waitCursor,
+        setWaitCursor,
+        setThemeMode,
+        selectedRegion,
+        setSelectedRegion,
+        setCountries,
+      }}
     >
       {children}
     </AppContext.Provider>
