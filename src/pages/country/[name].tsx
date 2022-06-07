@@ -87,8 +87,12 @@ export default function Country({ countryData }: CountryProps) {
                 </p>
                 <p>
                   <span>Languages:</span>{' '}
-                  {Object.entries(countryData.languages).map(
-                    ([_, value]) => ` ${value}`,
+                  {countryData.languages ? (
+                    Object.entries(countryData.languages).map(
+                      ([_, value]) => ` ${value}`,
+                    )
+                  ) : (
+                    <strong>Without languages</strong>
                   )}
                 </p>
               </div>
