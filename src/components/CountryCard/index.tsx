@@ -17,7 +17,7 @@ export default function CountryCard({
   population,
   region,
 }: CountryCardProps) {
-  const { themeMode } = useContext(AppContext)
+  const { themeMode, setWaitCursor } = useContext(AppContext)
 
   return (
     <Link href={`/country/${countryName.toLowerCase()}`}>
