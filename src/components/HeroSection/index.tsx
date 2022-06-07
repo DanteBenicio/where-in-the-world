@@ -90,6 +90,10 @@ export default function HeroSection({ countriesData }: HeroSectionProps) {
             className={`${styles.form} ${
               themeMode === 'dark' ? styles.dark : ''
             }`}
+            onSubmit={(e) => {
+              e.preventDefault()
+              searchCountry(inputFormRef.current!)
+            }}
             onClick={() => inputFormRef.current?.focus()}
           >
             {themeMode === 'dark' ? (
