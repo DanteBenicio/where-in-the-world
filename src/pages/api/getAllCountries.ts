@@ -18,16 +18,16 @@ export default async (
           for (let i = 0; i < 10; i++) {
             const country = {
               capital: parsedData[i]?.capital?.[0] || null,
-              countryName: parsedData[i]?.name?.common,
-              population: parsedData[i]?.population,
-              region: parsedData[i]?.region,
+              countryName: parsedData[i]?.name?.common || null,
+              population: parsedData[i]?.population || null,
+              region: parsedData[i]?.region || null,
               sub_region: parsedData[i]?.subregion || null,
-              top_level_domain: parsedData[i]?.tld,
+              top_level_domain: parsedData[i]?.tld || null,
               currencies: parsedData[i]?.currencies || null,
-              languages: parsedData[i]?.languages,
+              languages: parsedData[i]?.languages || null,
               flags: {
-                png: parsedData[i]?.flags.png,
-                svg: parsedData[i]?.flags.svg,
+                png: parsedData[i]?.flags.png || null,
+                svg: parsedData[i]?.flags.svg || null,
               },
             }
 

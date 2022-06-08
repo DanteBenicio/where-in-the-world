@@ -21,13 +21,13 @@ export default async (
 
             for (let i = 0; i < Number(countriesTotal) + 10; i++) {
               const country = {
-                capital: parsedData[i]?.capital?.[0],
-                countryName: parsedData[i]?.name?.common,
-                population: parsedData[i]?.population,
-                region: parsedData[i]?.region,
+                capital: parsedData[i]?.capital?.[0] || null,
+                countryName: parsedData[i]?.name?.common || null,
+                population: parsedData[i]?.population || null,
+                region: parsedData[i]?.region || null,
                 flags: {
-                  png: parsedData[i]?.flags.png,
-                  svg: parsedData[i]?.flags.svg,
+                  png: parsedData[i]?.flags.png || null,
+                  svg: parsedData[i]?.flags.svg || null,
                 },
               }
 
