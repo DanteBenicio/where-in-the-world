@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import { NextApiRequest, NextApiResponse } from 'next'
-import { countriesRequest } from '../../services/axios'
+import { countriesRequest } from '../../src/services/axios'
 
 export default async (
   req: NextApiRequest,

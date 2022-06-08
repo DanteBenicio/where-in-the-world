@@ -1,7 +1,7 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import { ContextProvider } from '../context'
-import Header from '../components/Header'
+import { ContextProvider } from '../src/context'
+import Header from '../src/components/Header'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

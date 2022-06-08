@@ -5,8 +5,8 @@ import type {
   NextPage,
 } from 'next'
 import Head from 'next/head'
-import HeroSection from '../components/HeroSection'
-import { api } from '../services/axios'
+import HeroSection from '../src/components/HeroSection'
+import { api } from '../src/services/axios'
 
 const Home: NextPage = ({
   countriesData,

@@ -2,10 +2,10 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Image from 'next/image'
 import React, { useContext, useEffect, useState } from 'react'
-import { AppContext } from '../../context'
-import { api, countriesRequest } from '../../services/axios'
+import { AppContext } from '../../src/context'
+import { api, countriesRequest } from '../../src/services/axios'
 import styles from './styles.module.scss'
-import ArrowBack from '../../svgs/arrow-back'
+import ArrowBack from '../../src/svgs/arrow-back'
 import Link from 'next/link'
 
 interface CountryProps {
