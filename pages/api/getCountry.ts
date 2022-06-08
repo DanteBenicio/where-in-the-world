@@ -13,7 +13,19 @@ export default async (
   const { data: countryData } = await countriesRequest.get(`/name/${name}`, {
     transformResponse: [
       (data) => {
-        const [parsedData] = JSON.parse(data)
+        const getCircularReplacer = () => {
+          const seen = new WeakSet();
+          return (key: any, value: any) => {
+            if (typeof value === 'object' && value !== null) {
+              if (seen.has(value)) {
+                return;
+              }
+              seen.add(value);
+            }
+            return value;
+          };
+        };
+        const [parsedData] = JSON.parse(data, getCircularReplacer())
 
         const country = {
           capital: parsedData?.capital?.[0] || null,
