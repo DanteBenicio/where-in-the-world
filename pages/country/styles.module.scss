@@ -1,4 +1,4 @@
-@use '../../scss/mixins/loading' as *;
+@use '../../src/scss/mixins/_loading.scss' as *;
 
 .section_container {
   display: grid;
