@@ -5,7 +5,7 @@ type CountryInformations = {
   population: number
   region: string
   sub_region: string
-  borders: string[]
+  borders?: string[]
   top_level_domain: string[]
   currencies: {
     [key: string]: {
@@ -13,7 +13,7 @@ type CountryInformations = {
       symbol: string
     }
   }
-  nativeName: {
+  nativeName?: {
     [key: string]: {
       official: string
       common: string
