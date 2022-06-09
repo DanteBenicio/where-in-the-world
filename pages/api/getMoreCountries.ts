@@ -13,45 +13,6 @@ export default async (
       region
         ? `https://restcountries.com/v3.1/region/${region}`
         : `https://restcountries.com/v3.1/all`,
-      {
-        transformResponse: [
-          (data) => {
-            const getCircularReplacer = () => {
-              const seen = new WeakSet();
-              return (key: any, value: any) => {
-                if (typeof value === 'object' && value !== null) {
-                  if (seen.has(value)) {
-                    return;
-                  }
-                  seen.add(value);
-                }
-                return value;
-              };
-            };
-            const parsedData = JSON.parse(data, getCircularReplacer())
-            const countries = []
-
-            for (let i = 0; i < Number(countriesTotal) + 10; i++) {
-              const country = {
-                capital: parsedData[i]?.capital?.[0] || null,
-                countryName: parsedData[i]?.name?.common || null,
-                population: parsedData[i]?.population || null,
-                region: parsedData[i]?.region || null,
-                flags: {
-                  png: parsedData[i]?.flags.png || null,
-                  svg: parsedData[i]?.flags.svg || null,
-                },
-              }
-
-              countries.push(country)
-            }
-
-            const getLastTenCountries = countries.slice(-10)
-
-            return getLastTenCountries
-          },
-        ],
-      },
     )
 
     return res.json([...data])
