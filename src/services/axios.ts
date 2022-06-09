@@ -5,5 +5,5 @@ export const api = axios.create({
 })
 
 export const countriesRequest = axios.create({
-  baseURL: process.env.COUNTRIES_API_URL,
+  baseURL: process.env.COUNTRIES_API_URL || "https://restcountries.com/v3.1/",
 })
