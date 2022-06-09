@@ -16,19 +16,7 @@ export default async (
       {
         transformResponse: [
           (data) => {
-            const getCircularReplacer = () => {
-              const seen = new WeakSet();
-              return (key: any, value: any) => {
-                if (typeof value === 'object' && value !== null) {
-                  if (seen.has(value)) {
-                    return;
-                  }
-                  seen.add(value);
-                }
-                return value;
-              };
-            };
-            const parsedData = JSON.parse(data, getCircularReplacer())
+            const parsedData = JSON.parse(data)
             const countries = []
 
             for (let i = 0; i < Number(countriesTotal) + 10; i++) {
