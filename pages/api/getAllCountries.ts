@@ -7,37 +7,28 @@ export default async (
   res: NextApiResponse<CountryInformations[]>,
 ) => {
   try {
-    const { data: countriesData } = await countriesRequest.get<
-      CountryInformations[]
-    >('/all', {
-      transformResponse: [
-        (data) => {
-          const parsedData = JSON.parse(data)
-          const countries = []
+    const { data } = await countriesRequest.get('/all')
 
-          for (let i = 0; i < 10; i++) {
-            const country = {
-              capital: parsedData[i]?.capital?.[0] || null,
-              countryName: parsedData[i]?.name?.common || null,
-              population: parsedData[i]?.population || null,
-              region: parsedData[i]?.region || null,
-              sub_region: parsedData[i]?.subregion || null,
-              top_level_domain: parsedData[i]?.tld || null,
-              currencies: parsedData[i]?.currencies || null,
-              languages: parsedData[i]?.languages || null,
-              flags: {
-                png: parsedData[i]?.flags.png || null,
-                svg: parsedData[i]?.flags.svg || null,
-              },
-            }
+    const countriesData: CountryInformations[] = []
 
-            countries.push(country)
-          }
-
-          return countries
+    for (let i = 0; i < 10; i++) {
+      const country: CountryInformations = {
+        capital: data[i]?.capital?.[0] || null,
+        countryName: data[i]?.name?.common || null,
+        population: data[i]?.population || null,
+        region: data[i]?.region || null,
+        sub_region: data[i]?.subregion || null,
+        top_level_domain: data[i]?.tld || null,
+        currencies: data[i]?.currencies || null,
+        languages: data[i]?.languages || null,
+        flags: {
+          png: data[i]?.flags.png || null,
+          svg: data[i]?.flags.svg || null,
         },
-      ],
-    })
+      }
+
+      countriesData.push(country)
+    }
 
     res.json(countriesData)
   } catch (error) {

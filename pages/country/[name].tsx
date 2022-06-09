@@ -165,8 +165,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { name } = params!
 
-  console.log(name)
-
   const { data: countryData } = await api.get('/getCountry', {
     params: {
       name,

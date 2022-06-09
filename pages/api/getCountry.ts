@@ -8,32 +8,24 @@ export default async (
 ) => {
   const { name } = req.query
 
-  const { data: countryData } = await countriesRequest.get(`/name/${name}`, {
-    transformResponse: [
-      (data) => {
-        const [parsedData] = JSON.parse(data)
+  const { data: [data] } = await countriesRequest.get(`/name/${name}`)
 
-        const country = {
-          capital: parsedData?.capital?.[0] || null,
-          countryName: parsedData?.name?.common || null,
-          nativeName: parsedData?.name?.nativeName || null,
-          population: parsedData?.population || null,
-          region: parsedData?.region || null,
-          sub_region: parsedData?.subregion || null,
-          top_level_domain: parsedData?.tld || null,
-          currencies: parsedData?.currencies || null,
-          languages: parsedData?.languages || null,
-          borders: parsedData?.borders || null,
-          flags: {
-            png: parsedData?.flags?.png || null,
-            svg: parsedData?.flags?.svg || null,
-          },
-        }
-
-        return country
-      },
-    ],
-  })
+  const countryData = {
+    capital: data?.capital?.[0] || null,
+    countryName: data?.name?.common || null,
+    nativeName: data?.name?.nativeName || null,
+    population: data?.population || null,
+    region: data?.region || null,
+    sub_region: data?.subregion || null,
+    top_level_domain: data?.tld || null,
+    currencies: data?.currencies || null,
+    languages: data?.languages || null,
+    borders: data?.borders || null,
+    flags: {
+      png: data?.flags?.png || null,
+      svg: data?.flags?.svg || null,
+    },
+  }
 
   return res.json(countryData)
 }

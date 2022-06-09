@@ -9,39 +9,30 @@ export default async (
   const { region } = req.query
 
   try {
-    const { data } = await axios.get(
-      `https://restcountries.com/v3.1/region/${region}`,
-      {
-        transformResponse: [
-          (data) => {
-            const parsedData = JSON.parse(data)
-            const countries = []
+    const { data } = await axios.get(`https://restcountries.com/v3.1/region/${region}`)
 
-            for (let i = 0; i < 10; i++) {
-              const country = {
-                capital: parsedData[i]?.capital?.[0] || null,
-                countryName: parsedData[i]?.name?.common || null,
-                population: parsedData[i]?.population || null,
-                region: parsedData[i]?.region || null,
-                sub_region: parsedData[i]?.subregion || null,
-                top_level_domain: parsedData[i]?.tld || null,
-                currencies: parsedData[i]?.currencies || null,
-                languages: parsedData[i]?.languages || null,
-                flags: {
-                  png: parsedData[i]?.flags.png || null,
-                  svg: parsedData[i]?.flags.svg || null,
-                },
-              }
-              countries.push(country)
-            }
+    const countries = []
 
-            return countries
-          },
-        ],
-      },
-    )
+    for (let i = 0; i < 10; i++) {
+      const country = {
+        capital: data[i]?.capital?.[0] || null,
+        countryName: data[i]?.name?.common || null,
+        population: data[i]?.population || null,
+        region: data[i]?.region || null,
+        sub_region: data[i]?.subregion || null,
+        top_level_domain: data[i]?.tld || null,
+        currencies: data[i]?.currencies || null,
+        languages: data[i]?.languages || null,
+        flags: {
+          png: data[i]?.flags.png || null,
+          svg: data[i]?.flags.svg || null,
+        },
+      }
 
-    return res.json([...data])
+      countries.push(country)
+    }
+
+    return res.json(countries)
   } catch (error) {
     console.error(error)
 
