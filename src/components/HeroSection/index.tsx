@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { api } from '../../services/axios'
 import { AxiosPromise } from 'axios'
+import { useClickOutside } from '../../hooks/useClickOutside'
 
 interface HeroSectionProps {
   countriesData: CountryInformations[]
@@ -23,6 +24,11 @@ export default function HeroSection({ countriesData }: HeroSectionProps) {
   const [isFetching, setIsFetching] = useState<boolean>(false)
   const inputFormRef = useRef<HTMLInputElement | null>(null)
   const regionListRef = useRef<HTMLUListElement | null>(null)
+  const selectRegionRef = useRef<HTMLDivElement | null>(null)
+
+  useClickOutside(() => {
+    setShowRegion(false)
+  }, selectRegionRef)
 
   useEffect(() => {
     ;(async () => {
@@ -163,6 +169,7 @@ export default function HeroSection({ countriesData }: HeroSectionProps) {
           <div className={styles.select_region_container}>
             <div
               onClick={() => setShowRegion(!showRegion)}
+              ref={selectRegionRef}
               className={`${styles.select_region} ${
                 themeMode === 'dark' ? styles.dark : ''
               }`}
