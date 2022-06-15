@@ -80,13 +80,12 @@ export default function HeroSection({ countriesData }: HeroSectionProps) {
     ;(async () => {
       try {
         setWaitCursor(true)
-
+        setShowRegion(false)
         const { data } = await getCountriesFromSelectedRegion(
           region.textContent!,
         )
 
         setSelectedRegion(region?.textContent!)
-        setShowRegion(false)
         setCountries(data)
         setWaitCursor(false)
       } catch (error) {
