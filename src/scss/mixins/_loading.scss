@@ -17,7 +17,7 @@
   border-right-color: transparent;
   animation: loadingRotate 0.8s infinite;
 
-  .dark {
+  &.dark {
     border-color: #FFF;
     border-right-color: transparent;
   }
