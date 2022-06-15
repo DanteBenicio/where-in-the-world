@@ -8,24 +8,33 @@ export default async (
 ) => {
   const { name } = req.query
 
-  const { data: [data] } = await countriesRequest.get(`/name/${name}`)
+  try {
+    const { data } = await countriesRequest.get(`name/${name}`)
+    
+    const [countryInfo] = data
 
-  const countryData = {
-    capital: data?.capital?.[0] || null,
-    countryName: data?.name?.common || null,
-    nativeName: data?.name?.nativeName || null,
-    population: data?.population || null,
-    region: data?.region || null,
-    sub_region: data?.subregion || null,
-    top_level_domain: data?.tld || null,
-    currencies: data?.currencies || null,
-    languages: data?.languages || null,
-    borders: data?.borders || null,
-    flags: {
-      png: data?.flags?.png || null,
-      svg: data?.flags?.svg || null,
-    },
+    const countryData = {
+      capital: countryInfo?.capital?.[0] || null,
+      countryName: countryInfo?.name?.common || null,
+      nativeName: countryInfo?.name?.nativeName || null,
+      population: countryInfo?.population || null,
+      region: countryInfo?.region || null,
+      sub_region: countryInfo?.subregion || null,
+      top_level_domain: countryInfo?.tld || null,
+      currencies: countryInfo?.currencies || null,
+      languages: countryInfo?.languages || null,
+      borders: countryInfo?.borders || null,
+      flags: {
+        png: countryInfo?.flags?.png || null,
+        svg: countryInfo?.flags?.svg || null,
+      },
+    }
+  
+    return res.json(countryData)
+    
+  } catch (error) {
+    console.error(error)
+
+    res.status(500).send(error)
   }
-
-  return res.json(countryData)
 }
