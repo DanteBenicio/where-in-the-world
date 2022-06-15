@@ -44,7 +44,7 @@ export default function Country({ countryData }: CountryProps) {
                   Back
                 </>
               ) : (
-                <div className={styles.loading} />
+                <div className={`${styles.loading} ${themeMode === 'dark' ? styles.dark : ''}`} />
               )}
             </button>
           </Link>

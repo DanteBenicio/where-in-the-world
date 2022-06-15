@@ -26,31 +26,7 @@ export default Home
 
 export const getServerSideProps: GetServerSideProps<{
   countriesData?: CountryInformations[]
-}> = async ({ query }) => {
-  const { sg } = query
-
-  console.log(sg, 'asdad')
-
-  if (sg) {
-    try {
-      const { data: countriesData } = await api.get('/getCountries', {
-        params: {
-          region: sg,
-        },
-      })
-
-      return {
-        props: { countriesData },
-      }
-    } catch (error) {
-      console.log(error)
-
-      return {
-        props: {},
-      }
-    }
-  }
-
+}> = async () => {
   try {
     const { data: countriesData } = await api.get('/getAllCountries')
 
