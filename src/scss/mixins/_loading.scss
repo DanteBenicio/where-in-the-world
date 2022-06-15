@@ -16,4 +16,9 @@
   border: $border solid #000;
   border-right-color: transparent;
   animation: loadingRotate 0.8s infinite;
+
+  .dark {
+    border-color: #FFF;
+    border-right-color: transparent;
+  }
 }
