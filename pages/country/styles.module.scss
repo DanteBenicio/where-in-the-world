@@ -61,7 +61,7 @@
       }
 
       > .loading {
-        @include loading-style(1.5625rem, 1.5625rem, 1px);
+        @include loading-spinner(1.5625rem, 1.5625rem, 1px);
       }
     }
   }

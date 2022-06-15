@@ -61,7 +61,7 @@ export default function Country({ countryData }: CountryProps) {
           />
 
           <div className={styles.country_info_container}>
-            <h2>{countryData.countryName}</h2>
+            <h2>{countryData?.countryName}</h2>
 
             <div className={styles.country_info_wrapper}>
               <div className={styles.country_info}>
@@ -98,7 +98,7 @@ export default function Country({ countryData }: CountryProps) {
               <div className={styles.country_info}>
                 <p>
                   <span>Top Level Domain:</span>{' '}
-                  {countryData?.top_level_domain.map((tld) => ` ${tld}`)}
+                  {countryData?.top_level_domain?.map((tld) => ` ${tld}`)}
                 </p>
                 <p>
                   <span>Currencies:</span>{' '}
@@ -112,7 +112,7 @@ export default function Country({ countryData }: CountryProps) {
                 </p>
                 <p>
                   <span>Languages:</span>{' '}
-                  {countryData.languages ? (
+                  {countryData?.languages ? (
                     Object.entries(countryData.languages).map(
                       ([_, value]) => ` ${value}`,
                     )
@@ -151,14 +151,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const { data: newCountriesData } = await countriesRequest.get('/all')
 
   const paths = newCountriesData.map((country: any) => ({
-    params: {
-      name: country.name?.common.toLowerCase(),
-    },
-  }))
+      params: {
+        name: country.name?.common.toLowerCase(),
+      },
+    }
+  ))
 
   return {
     paths,
-    fallback: false,
+    fallback: true,
   }
 }
 
