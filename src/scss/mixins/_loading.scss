@@ -8,7 +8,7 @@
   }
 }
 
-@mixin loading-style($width, $height, $border: 3px) {
+@mixin loading-spinner($width, $height, $border: 3px) {
   margin: 0 auto;
   width: $width;
   height: $height;
