@@ -9,7 +9,11 @@ export default async (
   const { name } = req.query
 
   try {
-    const { data } = await countriesRequest.get(`name/${name}`)
+    const { data } = await countriesRequest.get(`name/${name}`, {
+      params: { 
+        fullText: 'true'
+      }
+    })
     
     const [countryInfo] = data
 
