@@ -1,9 +1,9 @@
 /* eslint-disable no-undef */
-import { GetStaticPaths, GetStaticProps } from 'next'
+import { GetServerSideProps } from 'next'
 import Image from 'next/image'
 import React, { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../../src/context'
-import { api, countriesRequest } from '../../src/services/axios'
+import { api } from '../../src/services/axios'
 import styles from './styles.module.scss'
 import ArrowBack from '../../src/svgs/arrow-back'
 import Link from 'next/link'
@@ -147,23 +147,7 @@ export default function Country({ countryData }: CountryProps) {
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const { data: newCountriesData } = await countriesRequest.get('/all')
-
-  const paths = newCountriesData.map((country: any) => ({
-      params: {
-        name: country.name?.common.toLowerCase(),
-      },
-    }
-  ))
-
-  return {
-    paths,
-    fallback: true,
-  }
-}
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const { name } = params!
 
   const { data: countryData } = await api.get('/getCountry', {
