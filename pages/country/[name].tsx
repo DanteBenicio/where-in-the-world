@@ -152,6 +152,18 @@ export default function Country({ countryData }: CountryProps) {
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const { name } = params!
 
+  if (name?.length === 3) {
+    const { data: countryData} = await api.get('/getCountryByCode', { params: { 
+      code: name
+    }})
+
+    return {
+      props: {
+        countryData
+      }
+    }
+  }
+
   const { data: countryData } = await api.get('/getCountry', {
     params: {
       name,
