@@ -127,14 +127,16 @@ export default function Country({ countryData }: CountryProps) {
               <p>Border Countries: </p>
               {countryData?.borders ? (
                 countryData.borders.map((border) => (
-                  <span
-                    key={border}
-                    className={`${styles.border_country} ${
-                      themeMode === 'dark' ? styles.dark : ''
-                    }`}
-                  >
-                    {border}
-                  </span>
+                  <Link href={`/country/${border.toLowerCase()}`}>
+                    <span
+                      key={border}
+                      className={`${styles.border_country} ${
+                        themeMode === 'dark' ? styles.dark : ''
+                      }`}
+                    >
+                      {border}
+                    </span>
+                  </Link>
                 ))
               ) : (
                 <strong>This country does not border any country</strong>
