@@ -4,7 +4,7 @@ import { countriesRequest } from '../../src/services/axios'
 
 export default async (
   req: NextApiRequest,
-  res: NextApiResponse<CountryInformations[]>,
+  res: NextApiResponse<CountryInformations[] | any>,
 ) => {
   try {
     const { data } = await countriesRequest.get('/all')
@@ -34,6 +34,6 @@ export default async (
   } catch (error) {
     console.error(error)
 
-    return error as any
+    return res.status(500).send(error)
   }
 }
