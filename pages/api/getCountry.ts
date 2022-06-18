@@ -39,6 +39,6 @@ export default async (
   } catch (error) {
     console.error(error)
 
-    res.status(500).send(error)
+    return res.status(500).send(error)
   }
 }

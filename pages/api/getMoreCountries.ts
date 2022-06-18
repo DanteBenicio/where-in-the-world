@@ -35,6 +35,6 @@ export default async (
 
     return res.json(getLastTenCountries)
   } catch (error) {
-    return res.status(500).json({ error })
+    return res.status(500).send(error)
   }
 }
