@@ -136,6 +136,21 @@ export default function HeroSection({ countriesData }: HeroSectionProps) {
     }
   }
 
+  function getAllCountries() {
+    if (selectedRegion && selectedRegion !== 'All Countries') {
+      try {
+        (async () => {
+          const { data: countriesData } = await api.get('/getAllCountries')
+  
+          setCountries(countriesData)
+          setSelectedRegion('All Countries')
+        })()
+      } catch (error) {
+        console.error(error)
+      }
+    }
+  }
+
   return (
     <section className={styles.section_container}>
       <main
@@ -203,6 +218,7 @@ export default function HeroSection({ countriesData }: HeroSectionProps) {
                 }`}
               >
                 <ul className={styles.region_list} ref={regionListRef}>
+                  <li onClick={getAllCountries}>All Countries</li>
                   <li onClick={getSelectedRegion}>Africa</li>
                   <li onClick={getSelectedRegion}>Americas</li>
                   <li onClick={getSelectedRegion}>Asia</li>
