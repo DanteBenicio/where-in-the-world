@@ -77,21 +77,23 @@ export default function HeroSection({ countriesData }: HeroSectionProps) {
   function getSelectedRegion(event: React.MouseEvent<HTMLLIElement>) {
     const region = event.currentTarget
 
-    ;(async () => {
-      try {
-        setWaitCursor(true)
-        setShowRegion(false)
-        const { data } = await getCountriesFromSelectedRegion(
-          region.textContent!,
-        )
-
-        setSelectedRegion(region?.textContent!)
-        setCountries(data)
-        setWaitCursor(false)
-      } catch (error) {
-        console.error(error)
-      }
-    })()
+    if (selectedRegion !== region.textContent) {
+      (async () => {
+        try {
+          setWaitCursor(true)
+          setShowRegion(false)
+          const { data } = await getCountriesFromSelectedRegion(
+            region.textContent!,
+          )
+  
+          setSelectedRegion(region?.textContent!)
+          setCountries(data)
+          setWaitCursor(false)
+        } catch (error) {
+          console.error(error)
+        }
+      })()
+    }
   }
 
   async function getCountriesFromSelectedRegion(
