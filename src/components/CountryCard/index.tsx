@@ -20,7 +20,7 @@ export default function CountryCard({
   const { themeMode, setWaitCursor } = useContext(AppContext)
 
   return (
-    <Link href={`/country/${countryName.toLowerCase()}`}>
+    <Link href={`/country/${countryName?.toLowerCase()}`}>
       <div
         onClick={() => setWaitCursor(true)}
         className={`${styles.card_container} ${
