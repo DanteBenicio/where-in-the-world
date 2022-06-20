@@ -193,7 +193,7 @@
     position: absolute;
     z-index: 10;
     left: 0;
-    bottom: -188px;
+    bottom: -224px;
     width: 100%;
     background-color: hsl(0, 0%, 98%);
 
@@ -253,9 +253,5 @@
 
   .cards_container {
     gap: 2rem;
-  }
-
-  .select_region_container .region_list_wrapper{
-    bottom: -188px;
   }
 }
