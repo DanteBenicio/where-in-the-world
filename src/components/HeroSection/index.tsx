@@ -35,7 +35,6 @@ export default function HeroSection({ countriesData }: HeroSectionProps) {
       if (selectedRegion) {
         try {
           const { data } = await getCountriesFromSelectedRegion(selectedRegion)
-
           setCountries(data)
         } catch (error) {
           console.error(error)
@@ -47,12 +46,24 @@ export default function HeroSection({ countriesData }: HeroSectionProps) {
   function searchCountry(input: HTMLInputElement) {
     const inputValue = input?.value.toLowerCase()
 
-    if (inputValue) {
-      const findedCountries = countries.filter((country) =>
-        country.countryName.toLowerCase().startsWith(inputValue),
-      )
+    if (inputValue.length > 0) {
+      (async () => {
+        try {
+          const { data: findedCountries } = await api.get(`/getCountrySought`, {
+            params: {
+              name: inputValue
+            }
+          })
+          console.log(findedCountries, 'asdasd')
 
-      setCountries(findedCountries)
+          setCountries(findedCountries)
+        } catch (error) {
+          console.error(error)
+          
+          return
+        }
+      })()
+
     } else {
       ;(async () => {
         try {
