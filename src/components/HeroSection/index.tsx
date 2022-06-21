@@ -155,26 +155,28 @@ export default function HeroSection({ countriesData }: HeroSectionProps) {
   }
 
   async function getMoreCountries() {
-    try {
-      setIsFetching(true)
-
-      const { data: newCountriesData } = await api.get('/getMoreCountries', {
-        params: {
-          countriesTotal: countries?.length,
-          region: selectedRegion,
-        },
-      })
-
-      if (inputFormRef.current?.value) {
-        setCountries(newCountriesData)
+    if (isCanGetMoreCountries) {
+      try {
+        setIsFetching(true)
+  
+        const { data: newCountriesData } = await api.get('/getMoreCountries', {
+          params: {
+            countriesTotal: countries?.length,
+            region: selectedRegion,
+          },
+        })
+  
+        if (inputFormRef.current?.value) {
+          setCountries(newCountriesData)
+          setIsFetching(false)
+          return
+        }
+  
+        setCountries([...countries!, ...newCountriesData])
         setIsFetching(false)
-        return
+      } catch (error) {
+        console.error(error)
       }
-
-      setCountries([...countries!, ...newCountriesData])
-      setIsFetching(false)
-    } catch (error) {
-      console.error(error)
     }
   }
 
