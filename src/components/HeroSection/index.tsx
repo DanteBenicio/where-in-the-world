@@ -45,6 +45,36 @@ export default function HeroSection({ countriesData }: HeroSectionProps) {
     })()
   }, [])
 
+  const verifyCountriesTotalFromSelectedRegion = (regionCountriesTotal: number) => {
+    countries.length === regionCountriesTotal ? setIsCanGetMoreCountries(false) : setIsCanGetMoreCountries(true)
+  }
+
+  useEffect(() => {
+    switch (selectedRegion) {
+      case 'Africa':
+        verifyCountriesTotalFromSelectedRegion(ALL_AFRICA_COUNTRIES)
+        break;
+      case 'Americas':
+        verifyCountriesTotalFromSelectedRegion(ALL_AMERICAS_COUNTRIES)
+        
+        break;
+      case 'Asia':
+        verifyCountriesTotalFromSelectedRegion(ALL_ASIA_COUNTRIES)
+        
+        break;
+      case 'Europe':
+        verifyCountriesTotalFromSelectedRegion(ALL_EUROPE_COUNTRIES)
+        
+        break;
+      case 'Oceania':
+        verifyCountriesTotalFromSelectedRegion(ALL_OCEANIA_COUNTRIES)
+        
+        break;
+      default:
+        break;
+    }
+  }, [countries])
+
   function searchCountry(input: HTMLInputElement) {
     const inputValue = input?.value.toLowerCase()
 
@@ -77,7 +107,6 @@ export default function HeroSection({ countriesData }: HeroSectionProps) {
             setCountries(data)
           } else {
             const { data } = await api.get('/getAllCountries')
-
             setCountries(data)
           }
         } catch (error) {
