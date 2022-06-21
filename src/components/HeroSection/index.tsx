@@ -22,6 +22,7 @@ export default function HeroSection({ countriesData }: HeroSectionProps) {
   const [countries, setCountries] =
     useState<CountryInformations[]>(countriesData)
   const [isFetching, setIsFetching] = useState<boolean>(false)
+  const [isCanGetMoreCountries, setIsCanGetMoreCountries] = useState<boolean>(true)
   const inputFormRef = useRef<HTMLInputElement | null>(null)
   const regionListRef = useRef<HTMLUListElement | null>(null)
   const selectRegionRef = useRef<HTMLDivElement | null>(null)
@@ -272,7 +273,7 @@ export default function HeroSection({ countriesData }: HeroSectionProps) {
               }`}
             />
           ) : (
-            countries?.length! > 0 && (
+            countries?.length! > 0 && isCanGetMoreCountries && (
               <button
                 type="button"
                 onClick={getMoreCountries}
