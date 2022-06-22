@@ -16,7 +16,7 @@ export default async (
         : `https://restcountries.com/v3.1/all`)
 
     const countries = []
-    let numberOfQuantityCountriesFromRegion: number;
+    let numberOfQuantityCountriesFromRegion: number = 0;
 
     switch (region) {
       case 'Africa':
@@ -52,7 +52,7 @@ export default async (
     }
 
     for (let i = 0; i < Number(countriesTotal) + 10; i++) {
-      if (i === (numberOfQuantityCountriesFromRegion)) {
+      if (i === numberOfQuantityCountriesFromRegion) {
         break;
       } else {
         const country = {
