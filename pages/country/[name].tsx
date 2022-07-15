@@ -1,25 +1,25 @@
-/* eslint-disable no-undef */
-import { GetServerSideProps } from 'next'
-import Image from 'next/image'
-import React, { useContext, useEffect, useState } from 'react'
-import { AppContext } from '../../src/context'
-import { api } from '../../src/services/axios'
-import styles from './styles.module.scss'
-import ArrowBack from '../../src/svgs/arrow-back'
-import Link from 'next/link'
+/* eslint-disable no-unused-vars */
+import { GetServerSideProps } from 'next';
+import Image from 'next/image';
+import React, { useContext, useEffect, useState } from 'react';
+import Link from 'next/link';
+import { AppContext } from '../../src/context';
+import { api } from '../../src/services/axios';
+import styles from './styles.module.scss';
+import ArrowBack from '../../src/svgs/arrow-back';
 
 interface CountryProps {
   countryData: CountryInformations
 }
 
 export default function Country({ countryData }: CountryProps) {
-  const { themeMode, setWaitCursor } = useContext(AppContext)
-  const [loading, setLoading] = useState<boolean>(false)
+  const { themeMode, setWaitCursor } = useContext(AppContext);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    setLoading(false)
-    setWaitCursor(false)
-  }, [])
+    setLoading(false);
+    setWaitCursor(false);
+  }, []);
 
   return (
     <section
@@ -31,6 +31,7 @@ export default function Country({ countryData }: CountryProps) {
         <div className={styles.back_button_wrapper}>
           <Link href="/" prefetch>
             <button
+              type="button"
               onClick={() => setLoading(true)}
               className={`${themeMode === 'dark' ? styles.dark : ''}`}
             >
@@ -66,7 +67,8 @@ export default function Country({ countryData }: CountryProps) {
             <div className={styles.country_info_wrapper}>
               <div className={styles.country_info}>
                 <p>
-                  <span>Native Name:</span>{' '}
+                  <span>Native Name:</span>
+                  {' '}
                   {
                     countryData?.nativeName?.[
                       Object.keys(countryData?.nativeName)[0]
@@ -74,34 +76,40 @@ export default function Country({ countryData }: CountryProps) {
                   }
                 </p>
                 <p>
-                  <span>Population:</span>{' '}
+                  <span>Population:</span>
+                  {' '}
                   {new Intl.NumberFormat('en-US').format(
                     countryData?.population,
                   )}
                 </p>
                 <p>
-                  <span>Region:</span>{' '}
+                  <span>Region:</span>
+                  {' '}
                   {countryData?.region || <strong>Without region</strong>}
                 </p>
                 <p>
-                  <span>Sub Region:</span>{' '}
+                  <span>Sub Region:</span>
+                  {' '}
                   {countryData?.sub_region || (
                     <strong>Without sub region</strong>
                   )}
                 </p>
                 <p>
-                  <span>Capital:</span>{' '}
+                  <span>Capital:</span>
+                  {' '}
                   {countryData?.capital || <strong>Without capital</strong>}
                 </p>
               </div>
 
               <div className={styles.country_info}>
                 <p>
-                  <span>Top Level Domain:</span>{' '}
+                  <span>Top Level Domain:</span>
+                  {' '}
                   {countryData?.top_level_domain?.map((tld) => ` ${tld}`)}
                 </p>
                 <p>
-                  <span>Currencies:</span>{' '}
+                  <span>Currencies:</span>
+                  {' '}
                   {countryData?.currencies ? (
                     Object.entries(countryData?.currencies).map(
                       ([_, value]) => value.name,
@@ -111,7 +119,8 @@ export default function Country({ countryData }: CountryProps) {
                   )}
                 </p>
                 <p>
-                  <span>Languages:</span>{' '}
+                  <span>Languages:</span>
+                  {' '}
                   {countryData?.languages ? (
                     Object.entries(countryData.languages).map(
                       ([_, value]) => ` ${value}`,
@@ -146,33 +155,35 @@ export default function Country({ countryData }: CountryProps) {
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const { name } = params!
+  const { name } = params!;
 
   if (name?.length === 3) {
-    const { data: countryData} = await api.get('/getCountryByCode', { params: { 
-      code: name
-    }})
+    const { data: countryData } = await api.get('/getCountryByCode', {
+      params: {
+        code: name,
+      },
+    });
 
     return {
       props: {
-        countryData
-      }
-    }
+        countryData,
+      },
+    };
   }
 
   const { data: countryData } = await api.get('/getCountry', {
     params: {
       name,
     },
-  })
+  });
 
   return {
     props: {
       countryData,
     },
-  }
-}
+  };
+};
