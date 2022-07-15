@@ -1,196 +1,155 @@
 /* eslint-disable no-undef */
-import React, { useContext, useEffect, useRef, useState } from 'react'
-import CountryCard from '../CountryCard'
-import styles from './styles.module.scss'
-import SearchIcon from '../../svgs/search-icon'
-import { AppContext } from '../../context'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
-import { api } from '../../services/axios'
-import { AxiosPromise } from 'axios'
-import { useClickOutside } from '../../hooks/useClickOutside'
-import { ALL_AFRICA_COUNTRIES, ALL_AMERICAS_COUNTRIES, ALL_ASIA_COUNTRIES, ALL_EUROPE_COUNTRIES, ALL_OCEANIA_COUNTRIES } from '../../constants/countries-length'
+import React, {
+  useCallback, useContext, useEffect, useRef, useState,
+} from 'react';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import SearchIcon from '../../svgs/search-icon';
+
+import { api } from '../../services/axios';
+import { AppContext } from '../../context';
+import { getCountriesFromSelectedRegion } from '../../utils/getCountriesFromSelectedRegion';
+
+import CountryCard from '../CountryCard';
+
+import { useClickOutside } from '../../hooks/useClickOutside';
+import { useCanGetMoreCountries } from '../../hooks/useCanGetMoreCountries';
+
+import styles from './styles.module.scss';
 
 interface HeroSectionProps {
   countriesData: CountryInformations[]
 }
 
 export default function HeroSection({ countriesData }: HeroSectionProps) {
-  const { themeMode, selectedRegion, setSelectedRegion, setWaitCursor } =
-    useContext(AppContext)
+  const {
+    themeMode, selectedRegion, setSelectedRegion, setWaitCursor,
+  } = useContext(AppContext);
 
-  const [showRegion, setShowRegion] = useState<boolean>(false)
-  const [countries, setCountries] =
-    useState<CountryInformations[]>(countriesData)
-  const [isFetching, setIsFetching] = useState<boolean>(false)
-  const [isCanGetMoreCountries, setIsCanGetMoreCountries] = useState<boolean>(true)
-  const inputFormRef = useRef<HTMLInputElement | null>(null)
-  const regionListRef = useRef<HTMLUListElement | null>(null)
-  const selectRegionRef = useRef<HTMLDivElement | null>(null)
+  const [showRegion, setShowRegion] = useState<boolean>(false);
+  const [countries, setCountries] = useState<CountryInformations[]>(countriesData);
+  const [isFetching, setIsFetching] = useState<boolean>(false);
 
-  useClickOutside(() => {
-    setShowRegion(false)
-  }, selectRegionRef)
+  const inputFormRef = useRef<HTMLInputElement | null>(null);
+  const regionListRef = useRef<HTMLUListElement | null>(null);
+  const selectRegionRef = useRef<HTMLDivElement | null>(null);
+
+  const { canGetMoreCountries } = useCanGetMoreCountries(countries);
+
+  useClickOutside<HTMLDivElement>(() => {
+    setShowRegion(false);
+  }, selectRegionRef);
 
   useEffect(() => {
-    ;(async () => {
+    (async () => {
       if (selectedRegion) {
         try {
-          const { data } = await getCountriesFromSelectedRegion(selectedRegion)
-          setCountries(data)
+          const { data } = await getCountriesFromSelectedRegion(selectedRegion);
+          setCountries(data);
         } catch (error) {
-          console.error(error)
+          console.error(error);
         }
       }
-    })()
-  }, [])
-
-  const verifyCountriesTotalFromSelectedRegion = (regionCountriesTotal: number) => {
-    countries.length === regionCountriesTotal ? setIsCanGetMoreCountries(false) : setIsCanGetMoreCountries(true)
-  }
-
-  useEffect(() => {
-    switch (selectedRegion) {
-      case 'Africa':
-        verifyCountriesTotalFromSelectedRegion(ALL_AFRICA_COUNTRIES)
-        break;
-      case 'Americas':
-        verifyCountriesTotalFromSelectedRegion(ALL_AMERICAS_COUNTRIES)
-        
-        break;
-      case 'Asia':
-        verifyCountriesTotalFromSelectedRegion(ALL_ASIA_COUNTRIES)
-        
-        break;
-      case 'Europe':
-        verifyCountriesTotalFromSelectedRegion(ALL_EUROPE_COUNTRIES)
-        
-        break;
-      case 'Oceania':
-        verifyCountriesTotalFromSelectedRegion(ALL_OCEANIA_COUNTRIES)
-        
-        break;
-      default:
-        break;
-    }
-  }, [countries])
-
-  function searchCountry(input: HTMLInputElement) {
-    const inputValue = input?.value.toLowerCase()
-
-    if (inputValue.length > 0) {
-      (async () => {
-        try {
-          const { data: findedCountries } = await api.get(`/getCountrySought`, {
-            params: {
-              name: inputValue
-            }
-          })
-          console.log(findedCountries, 'asdasd')
-
-          setCountries(findedCountries)
-        } catch (error) {
-          console.error(error)
-          
-          return
-        }
-      })()
-
-    } else {
-      ;(async () => {
-        try {
-          if (selectedRegion) {
-            const { data } = await getCountriesFromSelectedRegion(
-              selectedRegion,
-            )
-
-            setCountries(data)
-          } else {
-            const { data } = await api.get('/getAllCountries')
-            setCountries(data)
-          }
-        } catch (error) {
-          console.error(error)
-        }
-      })()
-    }
-  }
-
-  function getSelectedRegion(event: React.MouseEvent<HTMLLIElement>) {
-    const region = event.currentTarget
-
-    if (selectedRegion !== region.textContent) {
-      (async () => {
-        try {
-          setWaitCursor(true)
-          setShowRegion(false)
-          const { data } = await getCountriesFromSelectedRegion(
-            region.textContent!,
-          )
-  
-          setSelectedRegion(region?.textContent!)
-          setCountries(data)
-          setWaitCursor(false)
-        } catch (error) {
-          console.error(error)
-        }
-      })()
-    }
-  }
-
-  async function getCountriesFromSelectedRegion(
-    region: string,
-  ): Promise<AxiosPromise<CountryInformations[]>> {
-    try {
-      return await api.get<CountryInformations[]>('/getCountries', {
-        params: {
-          region,
-        },
-      })
-    } catch (error) {
-      console.error(error)
-
-      return error as any
-    }
-  }
-
-  async function getMoreCountries() {
-    if (isCanGetMoreCountries) {
-      try {
-        setIsFetching(true)
-  
-        const { data: newCountriesData } = await api.get('/getMoreCountries', {
-          params: {
-            countriesTotal: countries?.length,
-            region: selectedRegion,
-          },
-        })
-  
-        if (inputFormRef.current?.value) {
-          setCountries(newCountriesData)
-          setIsFetching(false)
-          return
-        }
-  
-        setCountries([...countries!, ...newCountriesData])
-        setIsFetching(false)
-      } catch (error) {
-        console.error(error)
-      }
-    }
-  }
+    })();
+  }, []);
 
   function getAllCountries() {
     if (selectedRegion && selectedRegion !== 'All Countries') {
       try {
         (async () => {
-          const { data: countriesData } = await api.get('/getAllCountries')
-  
-          setCountries(countriesData)
-          setSelectedRegion('All Countries')
-        })()
+          const { data: allCountriesData } = await api.get('/getAllCountries');
+
+          setCountries(allCountriesData);
+          setSelectedRegion('All Countries');
+        })();
       } catch (error) {
-        console.error(error)
+        console.error(error);
+      }
+    }
+  }
+
+  const searchCountry = useCallback((input: HTMLInputElement) => {
+    const inputValue = input?.value.toLowerCase();
+
+    if (inputValue.length > 0) {
+      (async () => {
+        try {
+          const { data: findedCountries } = await api.get('/getCountrySought', {
+            params: {
+              name: inputValue,
+            },
+          });
+
+          setCountries(findedCountries);
+        } catch (error) {
+          console.error(error);
+        }
+      })();
+    } else {
+      (async () => {
+        try {
+          if (selectedRegion) {
+            const { data } = await getCountriesFromSelectedRegion(
+              selectedRegion,
+            );
+
+            setCountries(data);
+          } else {
+            const { data } = await api.get('/getAllCountries');
+            setCountries(data);
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      })();
+    }
+  }, [selectedRegion]);
+
+  function getSelectedRegion(event: React.MouseEvent<HTMLLIElement>) {
+    const region = event.currentTarget;
+
+    if (selectedRegion !== region.textContent) {
+      (async () => {
+        try {
+          setWaitCursor(true);
+          setShowRegion(false);
+          const { data } = await getCountriesFromSelectedRegion(
+            region.textContent!,
+          );
+
+          setSelectedRegion(region?.textContent!);
+          setCountries(data);
+          setWaitCursor(false);
+        } catch (error) {
+          console.error(error);
+        }
+      })();
+    }
+  }
+
+  async function getMoreCountries() {
+    if (canGetMoreCountries) {
+      try {
+        setIsFetching(true);
+
+        const { data: newCountriesData } = await api.get('/getMoreCountries', {
+          params: {
+            countriesTotal: countries?.length,
+            region: selectedRegion,
+          },
+        });
+
+        if (inputFormRef.current?.value) {
+          setCountries(newCountriesData);
+          setIsFetching(false);
+          return;
+        }
+
+        setCountries([...countries!, ...newCountriesData]);
+        setIsFetching(false);
+      } catch (error) {
+        console.error(error);
       }
     }
   }
@@ -208,8 +167,8 @@ export default function HeroSection({ countriesData }: HeroSectionProps) {
               themeMode === 'dark' ? styles.dark : ''
             }`}
             onSubmit={(e) => {
-              e.preventDefault()
-              searchCountry(inputFormRef.current!)
+              e.preventDefault();
+              searchCountry(inputFormRef.current!);
             }}
             onClick={() => inputFormRef.current?.focus()}
           >
@@ -305,7 +264,7 @@ export default function HeroSection({ countriesData }: HeroSectionProps) {
               }`}
             />
           ) : (
-            countries?.length! > 0 && isCanGetMoreCountries && (
+            countries?.length! > 0 && canGetMoreCountries && (
               <button
                 type="button"
                 onClick={getMoreCountries}
@@ -320,5 +279,5 @@ export default function HeroSection({ countriesData }: HeroSectionProps) {
         </div>
       </main>
     </section>
-  )
+  );
 }
