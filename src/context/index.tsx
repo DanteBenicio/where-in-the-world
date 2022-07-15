@@ -1,5 +1,7 @@
 /* eslint-disable no-undef */
-import React, { createContext, useEffect, useState } from 'react'
+import React, {
+  createContext, useEffect, useMemo, useState,
+} from 'react';
 
 interface AppContextType {
   themeMode: 'light' | 'dark' | string
@@ -36,10 +38,10 @@ export const AppContext = createContext<AppContextType>({
 export function ContextProvider({ children }: ContextProviderProps) {
   const [themeMode, setThemeMode] = useState<string>('')
   const [selectedRegion, setSelectedRegion] = useState<
-    'Africa' | 'Americas' | 'Asia' | 'Europe' | 'Oceania' | string
-  >('')
-  const [countries, setCountries] = useState<CountryInformations[]>()
-  const [waitCursor, setWaitCursor] = useState<boolean>(false)
+    'Africa' | 'Americas' | 'Asia' | 'Europe' | 'Oceania' | 'All Countries' | string
+  >('');
+  const [countries, setCountries] = useState<CountryInformations[]>();
+  const [waitCursor, setWaitCursor] = useState<boolean>(false);
 
   useEffect(() => {
     if (waitCursor) {
