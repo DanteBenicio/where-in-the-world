@@ -7,15 +7,22 @@ export default async (
   req: NextApiRequest,
   res: NextApiResponse<CountryInformations | unknown>,
 ) => {
-  const { countriesTotal, region } = req.query
+  const { countriesTotal, region } = req.query;
+
+  function verifyRegion() {
+    if (region && region !== 'All Countries') {
+      return `https://restcountries.com/v3.1/region/${region}`;
+    }
+
+    if (!region || region === 'All Countries') {
+      return 'https://restcountries.com/v3.1/all';
+    }
+  }
 
   try {
-    const { data } = await axios.get(
-      region
-        ? `https://restcountries.com/v3.1/region/${region}`
-        : `https://restcountries.com/v3.1/all`)
+    const { data } = await axios.get(verifyRegion()!);
 
-    const countries = []
+    const countries = [];
     let numberOfQuantityCountriesFromRegion: number = 0;
 
     switch (region) {
