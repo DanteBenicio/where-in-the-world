@@ -1,9 +1,10 @@
+/* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 /* eslint-disable no-undef */
-import Image from 'next/image'
-import Link from 'next/link'
-import React, { useContext } from 'react'
-import { AppContext } from '../../context'
-import styles from './styles.module.scss'
+import Image from 'next/image';
+import Link from 'next/link';
+import React, { useContext } from 'react';
+import { AppContext } from '../../context';
+import styles from './styles.module.scss';
 
 type CountryCardProps = Pick<
   CountryInformations,
@@ -17,7 +18,7 @@ export default function CountryCard({
   population,
   region,
 }: CountryCardProps) {
-  const { themeMode, setWaitCursor } = useContext(AppContext)
+  const { themeMode, setWaitCursor } = useContext(AppContext);
 
   return (
     <Link href={`/country/${countryName?.toLowerCase()}`}>
@@ -53,5 +54,5 @@ export default function CountryCard({
         </div>
       </div>
     </Link>
-  )
+  );
 }

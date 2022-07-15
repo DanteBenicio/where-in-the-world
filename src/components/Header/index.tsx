@@ -1,17 +1,17 @@
-import React, { useContext } from 'react'
+import React, { useContext } from 'react';
 
-import styles from './styles.module.scss'
-import { AppContext } from '../../context'
-import Link from 'next/link'
+import Link from 'next/link';
+import styles from './styles.module.scss';
+import { AppContext } from '../../context';
 
 export default function Header() {
-  const { themeMode, setThemeMode } = useContext(AppContext)
+  const { themeMode, setThemeMode } = useContext(AppContext);
 
   return (
     <header
       className={`${styles.header} ${themeMode === 'dark' ? styles.dark : ''}`}
     >
-      <Link href={'/'}>
+      <Link href="/">
         <h1 id={styles.title}>Where in the world?</h1>
       </Link>
 
@@ -39,5 +39,5 @@ export default function Header() {
         <span>Dark Mode</span>
       </div>
     </header>
-  )
+  );
 }
