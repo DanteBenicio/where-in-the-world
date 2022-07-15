@@ -66,20 +66,22 @@ export function ContextProvider({ children }: ContextProviderProps) {
     }
   }, [themeMode])
 
+  const AppContextValue = useMemo(() => ({
+    themeMode,
+    countries,
+    waitCursor,
+    selectedRegion,
+    setWaitCursor,
+    setThemeMode,
+    setSelectedRegion,
+    setCountries,
+  }), [themeMode, countries, waitCursor, selectedRegion]);
+
   return (
     <AppContext.Provider
-      value={{
-        themeMode,
-        countries,
-        waitCursor,
-        setWaitCursor,
-        setThemeMode,
-        selectedRegion,
-        setSelectedRegion,
-        setCountries,
-      }}
+      value={AppContextValue}
     >
       {children}
     </AppContext.Provider>
-  )
+  );
 }
