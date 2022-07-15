@@ -33,10 +33,10 @@ export const AppContext = createContext<AppContextType>({
   setThemeMode: () => {},
   setSelectedRegion: () => {},
   setWaitCursor: () => {},
-})
+});
 
 export function ContextProvider({ children }: ContextProviderProps) {
-  const [themeMode, setThemeMode] = useState<string>('')
+  const [themeMode, setThemeMode] = useState<string>('');
   const [selectedRegion, setSelectedRegion] = useState<
     'Africa' | 'Americas' | 'Asia' | 'Europe' | 'Oceania' | 'All Countries' | string
   >('');
@@ -45,26 +45,26 @@ export function ContextProvider({ children }: ContextProviderProps) {
 
   useEffect(() => {
     if (waitCursor) {
-      document.documentElement.style.cursor = 'wait'
+      document.documentElement.style.cursor = 'wait';
     } else {
-      document.documentElement.style.cursor = 'auto'
+      document.documentElement.style.cursor = 'auto';
     }
-  })
+  });
 
   useEffect(() => {
     if (!themeMode) {
-      setThemeMode(localStorage.getItem('themeMode') || 'light')
-      return
+      setThemeMode(localStorage.getItem('themeMode') || 'light');
+      return;
     }
 
     if (themeMode === 'light') {
-      document.documentElement.classList.remove('dark')
-      localStorage.setItem('themeMode', 'light')
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('themeMode', 'light');
     } else {
-      document.documentElement.classList.add('dark')
-      localStorage.setItem('themeMode', 'dark')
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('themeMode', 'dark');
     }
-  }, [themeMode])
+  }, [themeMode]);
 
   const AppContextValue = useMemo(() => ({
     themeMode,
