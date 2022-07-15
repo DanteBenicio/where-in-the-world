@@ -28,36 +28,45 @@ export default async (
 
     switch (region) {
       case 'Africa':
-        numberOfQuantityCountriesFromRegion = ALL_AFRICA_COUNTRIES
-        
+        numberOfQuantityCountriesFromRegion = allContinents.ALL_AFRICA_COUNTRIES;
+
         break;
       case 'Americas':
-        numberOfQuantityCountriesFromRegion = ALL_AMERICAS_COUNTRIES
+        numberOfQuantityCountriesFromRegion = allContinents.ALL_AMERICAS_COUNTRIES;
 
         break;
       case 'Asia':
-        numberOfQuantityCountriesFromRegion = ALL_ASIA_COUNTRIES
-  
+        numberOfQuantityCountriesFromRegion = allContinents.ALL_ASIA_COUNTRIES;
+
         break;
       case 'Europe':
-        numberOfQuantityCountriesFromRegion = ALL_EUROPE_COUNTRIES
+        numberOfQuantityCountriesFromRegion = allContinents.ALL_EUROPE_COUNTRIES;
 
         break;
       case 'Oceania':
-        numberOfQuantityCountriesFromRegion = ALL_OCEANIA_COUNTRIES
-        
+        numberOfQuantityCountriesFromRegion = allContinents.ALL_OCEANIA_COUNTRIES;
+
+        break;
+      case 'All Countries':
+        numberOfQuantityCountriesFromRegion = allContinents.ALL_WORLD_COUNTRIES;
+
+        break;
+      case '':
+        numberOfQuantityCountriesFromRegion = allContinents.ALL_WORLD_COUNTRIES;
+
         break;
     }
 
     if (Number(countriesTotal) === numberOfQuantityCountriesFromRegion) {
-      return res.send({ message: 'Max length of countries'})
+      return res.send({ message: 'Max length of countries' });
     }
-    
-    const getTenOrMinusCountriesFromRegion = () => {
-      return (numberOfQuantityCountriesFromRegion - Number(countriesTotal)) <= 10 && (numberOfQuantityCountriesFromRegion - Number(countriesTotal)) !== 0
+
+    const getTenOrMinusCountriesFromRegion = () => (
+      (numberOfQuantityCountriesFromRegion - Number(countriesTotal)) <= 10
+      && (numberOfQuantityCountriesFromRegion - Number(countriesTotal)) !== 0
         ? -(numberOfQuantityCountriesFromRegion - Number(countriesTotal))
         : -10
-    }
+    );
 
     for (let i = 0; i < Number(countriesTotal) + 10; i++) {
       if (i === numberOfQuantityCountriesFromRegion) {
@@ -72,16 +81,16 @@ export default async (
             png: data[i]?.flags.png || null,
             svg: data[i]?.flags.svg || null,
           },
-        }
-  
-        countries.push(country)
+        };
+
+        countries.push(country);
       }
     }
 
-    const getLastCountries = countries.slice(getTenOrMinusCountriesFromRegion())
+    const getLastCountries = countries.slice(getTenOrMinusCountriesFromRegion());
 
-    return res.json(getLastCountries)
+    return res.json(getLastCountries);
   } catch (error) {
-    return res.status(500).send(error)
+    return res.status(500).send(error);
   }
-}
+};
