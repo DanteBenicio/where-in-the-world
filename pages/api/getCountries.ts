@@ -1,17 +1,17 @@
 /* eslint-disable no-undef */
-import axios from 'axios'
-import { NextApiRequest, NextApiResponse } from 'next'
+import axios from 'axios';
+import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async (
   req: NextApiRequest,
   res: NextApiResponse<CountryInformations | unknown>,
 ) => {
-  const { region } = req.query
+  const { region } = req.query;
 
   try {
-    const { data } = await axios.get(`https://restcountries.com/v3.1/region/${region}`)
+    const { data } = await axios.get(`https://restcountries.com/v3.1/region/${region}`);
 
-    const countries = []
+    const countries = [];
 
     for (let i = 0; i < 10; i++) {
       const country = {
@@ -27,15 +27,15 @@ export default async (
           png: data[i]?.flags.png || null,
           svg: data[i]?.flags.svg || null,
         },
-      }
+      };
 
-      countries.push(country)
+      countries.push(country);
     }
 
-    return res.json(countries)
+    return res.json(countries);
   } catch (error) {
-    console.error(error)
+    console.error(error);
 
-    return res.status(500).json({ message: error })
+    return res.status(500).json({ message: error });
   }
-}
+};

@@ -1,16 +1,16 @@
-import {NextApiRequest, NextApiResponse} from 'next'
-import { countriesRequest } from '../../src/services/axios'
+import { NextApiRequest, NextApiResponse } from 'next';
+import { countriesRequest } from '../../src/services/axios';
 
 export default async (
   req: NextApiRequest,
-  res: NextApiResponse<CountryInformations[] | any>
+  res: NextApiResponse<CountryInformations[] | any>,
 ) => {
-  const { code } = req.query
+  const { code } = req.query;
 
   try {
-    const { data } = await countriesRequest.get(`/alpha/${code}`)
+    const { data } = await countriesRequest.get(`/alpha/${code}`);
 
-    const [countryInfo] = data
+    const [countryInfo] = data;
 
     const countryData = {
       capital: countryInfo?.capital?.[0] || null,
@@ -27,10 +27,10 @@ export default async (
         png: countryInfo?.flags?.png || null,
         svg: countryInfo?.flags?.svg || null,
       },
-    }
+    };
 
-    return res.json(countryData)
+    return res.json(countryData);
   } catch (error) {
-    return res.status(500).json(error)
+    return res.status(500).json(error);
   }
-}
+};

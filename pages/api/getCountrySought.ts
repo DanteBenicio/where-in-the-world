@@ -1,12 +1,12 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { countriesRequest } from "../../src/services/axios";
+import { NextApiRequest, NextApiResponse } from 'next';
+import { countriesRequest } from '../../src/services/axios';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { name } = req.query;
 
   if (name) {
     try {
-      const { data } = await countriesRequest.get(`/name/${name}`)
+      const { data } = await countriesRequest.get(`/name/${name}`);
 
       const countries = [];
 
@@ -25,19 +25,19 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
               png: data[i]?.flags.png || null,
               svg: data[i]?.flags.svg || null,
             },
-          }
-    
-          countries.push(country)
+          };
+
+          countries.push(country);
         }
       }
 
-      console.log(countries, 'asdas')
+      console.log(countries, 'asdas');
 
       return res.json(countries);
     } catch (error) {
-      console.error(error)
+      console.error(error);
 
-      return res.status(500).send(error)
+      return res.status(500).send(error);
     }
   }
-}
+};
