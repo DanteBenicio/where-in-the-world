@@ -1,7 +1,8 @@
-/* eslint-disable no-undef */
-import axios from 'axios'
-import { NextApiRequest, NextApiResponse } from 'next'
-import {ALL_AFRICA_COUNTRIES, ALL_AMERICAS_COUNTRIES, ALL_ASIA_COUNTRIES, ALL_EUROPE_COUNTRIES, ALL_OCEANIA_COUNTRIES} from '../../src/constants/countries-length'
+import axios from 'axios';
+import { NextApiRequest, NextApiResponse } from 'next';
+import {
+  allContinents,
+} from '../../src/constants/countries-length';
 
 export default async (
   req: NextApiRequest,
