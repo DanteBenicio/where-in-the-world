@@ -26,5 +26,5 @@ export default function ArrowBack({ fillColor }: ArrowBackProps) {
         strokeLinejoin="round"
       />
     </svg>
-  )
+  );
 }

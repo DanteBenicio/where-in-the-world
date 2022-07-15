@@ -37,5 +37,5 @@ export default function ArrowIcon({ fillColor, size }: ArrowIconProps) {
         />
       </g>
     </svg>
-  )
+  );
 }
